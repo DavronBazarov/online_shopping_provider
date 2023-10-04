@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:online_shopping_provider/screens/orders_screen.dart';
 import '../provider/cart.dart';
 import '../provider/orders.dart';
 import '../widgets/cart_list_item.dart';
@@ -43,14 +44,7 @@ class CartScreen extends StatelessWidget {
                       ),
                       backgroundColor: Theme.of(context).primaryColor,
                     ),
-                    TextButton(
-                      child: const Text("BUYURTMA QILISH"),
-                      onPressed: () {
-                        Provider.of<Orders>(context, listen: false).addToOrders(
-                            cart.items.values.toList(), totalPrice);
-                        cart.clearItems();
-                      },
-                    ),
+                    OrderButton(cart: cart, totalPrice: totalPrice),
                   ],
                 ),
               ),
@@ -74,6 +68,47 @@ class CartScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class OrderButton extends StatefulWidget {
+  const OrderButton({
+    super.key,
+    required this.cart,
+    required this.totalPrice,
+  });
+
+  final Cart cart;
+  final double totalPrice;
+
+  @override
+  State<OrderButton> createState() => _OrderButtonState();
+}
+
+class _OrderButtonState extends State<OrderButton> {
+  var _isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: (widget.cart.items.isEmpty || _isLoading)
+          ? null
+          : () async {
+              setState(() {
+                _isLoading = true;
+              });
+              await Provider.of<Orders>(context, listen: false).addToOrders(
+                  widget.cart.items.values.toList(), widget.totalPrice);
+              setState(() {
+                _isLoading = false;
+              });
+              widget.cart.clearItems();
+              Navigator.pushReplacementNamed(context, OrdersScreen.routeName);
+            },
+      child: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : const Text("BUYURTMA QILISH"),
     );
   }
 }

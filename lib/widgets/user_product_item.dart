@@ -19,7 +19,10 @@ class UserProductItem extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text("Bekor qilish" , style: TextStyle(color: Colors.black54),),
+                child: const Text(
+                  "Bekor qilish",
+                  style: TextStyle(color: Colors.black54),
+                ),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -39,6 +42,7 @@ class UserProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<ModelProduct>(context);
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     return Card(
       child: ListTile(
         leading: CircleAvatar(
@@ -50,20 +54,30 @@ class UserProductItem extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, EditProductScreen.routeName, arguments: product.id);
+                Navigator.pushNamed(context, EditProductScreen.routeName,
+                    arguments: product.id);
               },
-              icon:  Icon(
+              icon: Icon(
                 Icons.edit,
                 color: Theme.of(context).primaryColor,
               ),
             ),
             IconButton(
               onPressed: () {
-                _notifyUserAboutDelete(context, () {
-                  Provider.of<Products>(context, listen: false).deleteProduct(product.id);
+                _notifyUserAboutDelete(context, () async {
+                  try {
+                    await Provider.of<Products>(context, listen: false)
+                        .deleteProduct(product.id);
+                  } catch (e) {
+                    scaffoldMessenger.showSnackBar(
+                      SnackBar(
+                        content: Text(e.toString()),
+                      ),
+                    );
+                  }
                 });
               },
-              icon:  Icon(
+              icon: Icon(
                 Icons.delete,
                 color: Theme.of(context).colorScheme.error,
               ),

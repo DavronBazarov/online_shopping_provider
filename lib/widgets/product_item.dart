@@ -48,7 +48,7 @@ class ProductItem extends StatelessWidget {
                       image: product.imageUrl,
                       price: product.price);
                 },
-                second: 5,
+                second: 2,
               );
             },
             icon: Icon(
