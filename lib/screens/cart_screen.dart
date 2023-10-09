@@ -39,7 +39,7 @@ class CartScreen extends StatelessWidget {
                     const Spacer(),
                     Chip(
                       label: Text(
-                        "\$$totalPrice",
+                        "\$$totalPrice".substring(0, 10),
                         style: const TextStyle(color: Colors.white),
                       ),
                       backgroundColor: Theme.of(context).primaryColor,

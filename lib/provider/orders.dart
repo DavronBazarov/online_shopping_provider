@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 
 import '../models/cart_item.dart';
@@ -13,9 +12,16 @@ class Orders extends ChangeNotifier {
     return [..._items];
   }
 
+  String? _authToken;
+  String? _userId;
+  void  setParams(String? token, String? userId){
+    _authToken = token;
+    _userId = userId;
+  }
+
   Future<void> getOrdersFomFirebase() async {
     final url = Uri.parse(
-      'https://online-shopp-provider-default-rtdb.firebaseio.com/orders.json',
+      'https://online-shopp-provider-default-rtdb.firebaseio.com/orders/$_userId.json?auth=$_authToken',
     );
     try {
       final response = await http.get(url);
@@ -52,9 +58,10 @@ class Orders extends ChangeNotifier {
 
   Future<void> addToOrders(List<CartItem> products, double totalPrice) async {
     final url = Uri.parse(
-      'https://online-shopp-provider-default-rtdb.firebaseio.com/orders.json',
+      'https://online-shopp-provider-default-rtdb.firebaseio.com/orders/$_userId.json?auth=$_authToken',
     );
     try {
+
       final response = await http.post(
         url,
         body: jsonEncode(
@@ -75,6 +82,7 @@ class Orders extends ChangeNotifier {
           },
         ),
       );
+
       _items.insert(
         0,
         Order(

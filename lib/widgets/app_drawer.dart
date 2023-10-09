@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:online_shopping_provider/provider/auth.dart';
 import 'package:online_shopping_provider/screens/home_screen.dart';
 import 'package:online_shopping_provider/screens/manage_products_screen.dart';
 import 'package:online_shopping_provider/screens/orders_screen.dart';
+import 'package:provider/provider.dart';
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
@@ -33,6 +35,15 @@ class AppDrawer extends StatelessWidget {
             onTap: ()=> Navigator.pushReplacementNamed(context, ManageProductsScreen.routeName),
           ),
           const Divider(),
+          ListTile(
+            leading: const Icon(Icons.exit_to_app),
+            title: const Text("Chiqish"),
+            onTap: (){
+              Navigator.of(context).pop();
+              Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+              Provider.of<Auth>(context, listen: false).logOut();
+            },
+          ),
         ],
       ),
     );

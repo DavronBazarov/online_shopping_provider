@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:online_shopping_provider/provider/auth.dart';
 import 'package:online_shopping_provider/provider/cart.dart';
 import 'package:timer_snackbar/timer_snackbar.dart';
 import '../models/product.dart';
@@ -13,6 +14,7 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final product = Provider.of<ModelProduct>(context, listen: false);
     final cart = Provider.of<Cart>(context, listen: false);
+    final auth = Provider.of<Auth>(context);
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
@@ -25,7 +27,7 @@ class ProductItem extends StatelessWidget {
             builder: (context, pro, child) {
               return IconButton(
                 onPressed: () {
-                  pro.toggleFavorite();
+                  pro.toggleFavorite(auth.token!, auth.userId!);
                 },
                 icon: Icon(
                   pro.isFavorite
