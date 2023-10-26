@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:online_shopping_provider/screens/orders_screen.dart';
+import 'package:provider/provider.dart';
+
 import '../provider/cart.dart';
 import '../provider/orders.dart';
 import '../widgets/cart_list_item.dart';
-import 'package:provider/provider.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -39,7 +40,7 @@ class CartScreen extends StatelessWidget {
                     const Spacer(),
                     Chip(
                       label: Text(
-                        "\$$totalPrice".substring(0, 10),
+                        "\$$totalPrice",
                         style: const TextStyle(color: Colors.white),
                       ),
                       backgroundColor: Theme.of(context).primaryColor,

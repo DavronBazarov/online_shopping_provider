@@ -41,7 +41,7 @@ class ProductDetailScreen extends StatelessWidget {
         ),
       ),
       bottomSheet: BottomAppBar(
-        height: 80,
+        height: 90,
         padding: const EdgeInsets.all(16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -103,7 +103,7 @@ class ProductDetailScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 25, vertical: 12),
                   ),
-                  child: const Text("Savatchaga qo'shish"),
+                  child: const Text("Savatchaga qo'shish", style: TextStyle(color: Colors.white),),
                 );
               }
             }),

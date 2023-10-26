@@ -32,7 +32,10 @@ class CartListItem extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text("Bekor qilish" , style: TextStyle(color: Colors.black54),),
+                child: const Text(
+                  "Bekor qilish",
+                  style: TextStyle(color: Colors.black54),
+                ),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -42,7 +45,12 @@ class CartListItem extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
-                child: const Text('O\'chirish'),
+                child: const Text(
+                  'O\'chirish',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ],
           );
@@ -76,7 +84,7 @@ class CartListItem extends StatelessWidget {
         ],
       ),
       child: Card(
-        margin: const EdgeInsets.symmetric( vertical: 5),
+        margin: const EdgeInsets.symmetric(vertical: 5),
         child: ListTile(
           contentPadding: EdgeInsets.zero,
           leading: Padding(

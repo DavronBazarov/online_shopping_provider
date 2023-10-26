@@ -25,15 +25,19 @@ class _AuthScreenState extends State<AuthScreen> {
   };
 
   void _showErrorDialog(String message) {
-    showDialog(context: context,
+    showDialog(
+        context: context,
         builder: (ctx) {
           return AlertDialog(
             title: const Text("Xatolik"),
             content: Text(message),
             actions: [
-              TextButton(onPressed: () {
-                Navigator.pop(ctx);
-              }, child: const Text("Okay!"),),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(ctx);
+                },
+                child: const Text("Okay!"),
+              ),
             ],
           );
         });
@@ -72,7 +76,7 @@ class _AuthScreenState extends State<AuthScreen> {
           errorMessage = "Prol nato'g'ri";
         } else if (error.message.contains("USER_DISABLED")) {
           errorMessage = "Bu foydalanuvchi bloklangan";
-        }else if (error.message.contains("INVALID_LOGIN_CREDENTIALS")) {
+        } else if (error.message.contains("INVALID_LOGIN_CREDENTIALS")) {
           errorMessage = "Login yoki parol xato!";
         }
         _showErrorDialog(errorMessage);
@@ -109,7 +113,12 @@ class _AuthScreenState extends State<AuthScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Image.asset('assets/images/logo.png'),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+                Image.asset(
+                  'assets/images/logo.png',
+                  height: 200,
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 TextFormField(
                   decoration: const InputDecoration(labelText: "Email manzil"),
                   validator: (email) {
@@ -159,15 +168,15 @@ class _AuthScreenState extends State<AuthScreen> {
                 _isLoading
                     ? const Center(child: CircularProgressIndicator())
                     : ElevatedButton(
-                  onPressed: _submit,
-                  style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero)),
-                  child: Text(_authMode == AuthMode.login
-                      ? "Kirish"
-                      : "RO'YXATDAN O'TISH"),
-                ),
+                        onPressed: _submit,
+                        style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 20),
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero)),
+                        child: Text(_authMode == AuthMode.login
+                            ? "Kirish"
+                            : "RO'YXATDAN O'TISH"),
+                      ),
                 const SizedBox(height: 40),
                 TextButton(
                   onPressed: _switchAuthMode,

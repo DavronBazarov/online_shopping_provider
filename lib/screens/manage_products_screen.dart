@@ -11,7 +11,8 @@ class ManageProductsScreen extends StatelessWidget {
   static const routeName = '/manage-products';
 
   Future<void> _refreshProduct(BuildContext context) async {
-    await Provider.of<Products>(context, listen: false).getDateFromFirebase(true);
+    await Provider.of<Products>(context, listen: false)
+        .getDateFromFirebase(true);
   }
 
   @override
@@ -34,28 +35,30 @@ class ManageProductsScreen extends StatelessWidget {
       body: FutureBuilder(
         future: _refreshProduct(context),
         builder: (context, snapshotData) {
-          if(snapshotData.connectionState == ConnectionState.waiting){
+          if (snapshotData.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
-          }else if(snapshotData.connectionState == ConnectionState.done){
+          } else if (snapshotData.connectionState == ConnectionState.done) {
             return RefreshIndicator(
               onRefresh: () => _refreshProduct(context),
-              child: Consumer<Products>(
-                builder: (c, productProvider, _) {
-                  return ListView.builder(
-                    padding: const EdgeInsets.all(16),
-                    itemCount: productProvider.list.length,
-                    itemBuilder: (context, index) {
-                      final product = productProvider.list[index];
-                      return ChangeNotifierProvider.value(
-                        value: product,
-                        child: const UserProductItem(),
+              child: Consumer<Products>(builder: (c, productProvider, _) {
+                return productProvider.list.isEmpty
+                    ? const Center(
+                        child: Text("Siz yaratgan mahsulot mavjud emas.."),
+                      )
+                    : ListView.builder(
+                        padding: const EdgeInsets.all(16),
+                        itemCount: productProvider.list.length,
+                        itemBuilder: (context, index) {
+                          final product = productProvider.list[index];
+                          return ChangeNotifierProvider.value(
+                            value: product,
+                            child: const UserProductItem(),
+                          );
+                        },
                       );
-                    },
-                  );
-                }
-              ),
+              }),
             );
-          } else{
+          } else {
             return const Center(child: Text("Xatolik sodir bo'ldi..."));
           }
         },
