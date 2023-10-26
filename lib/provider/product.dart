@@ -9,6 +9,7 @@ import '../models/product.dart';
 class Products extends ChangeNotifier {
   List<ModelProduct> _list = [];
 
+
   List<ModelProduct> get list {
     return [..._list];
   }

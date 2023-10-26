@@ -45,7 +45,6 @@ class AppDrawer extends StatelessWidget {
             title: const Text("Chiqish"),
             onTap: () {
               Navigator.of(context).pop();
-              Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
               Provider.of<Auth>(context, listen: false).logOut();
             },
           ),

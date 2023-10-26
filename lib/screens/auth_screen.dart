@@ -171,11 +171,15 @@ class _AuthScreenState extends State<AuthScreen> {
                         onPressed: _submit,
                         style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 20),
+                            backgroundColor: Colors.teal,
                             shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.zero)),
-                        child: Text(_authMode == AuthMode.login
-                            ? "Kirish"
-                            : "RO'YXATDAN O'TISH"),
+                        child: Text(
+                          _authMode == AuthMode.login
+                              ? "Kirish"
+                              : "RO'YXATDAN O'TISH",
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ),
                 const SizedBox(height: 40),
                 TextButton(
