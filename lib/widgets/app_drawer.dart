@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_shopping_provider/provider/auth.dart';
+import 'package:online_shopping_provider/screens/auth_screen.dart';
 import 'package:online_shopping_provider/screens/home_screen.dart';
 import 'package:online_shopping_provider/screens/manage_products_screen.dart';
 import 'package:online_shopping_provider/screens/orders_screen.dart';
@@ -36,8 +37,9 @@ class AppDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text("Mahsulotlarni Boshqarish"),
-            onTap: () => Navigator.pushReplacementNamed(
-                context, ManageProductsScreen.routeName),
+            onTap: () =>
+                Navigator.pushReplacementNamed(
+                    context, ManageProductsScreen.routeName),
           ),
           const Divider(),
           ListTile(
@@ -45,7 +47,11 @@ class AppDrawer extends StatelessWidget {
             title: const Text("Chiqish"),
             onTap: () {
               Navigator.of(context).pop();
-              Provider.of<Auth>(context, listen: false).logOut();
+              Navigator
+                  .of(context)
+                  .pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => const AuthScreen()));
+                  Provider.of<Auth>(context, listen: false).logOut();
             },
           ),
         ],
